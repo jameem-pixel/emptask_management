@@ -1,0 +1,13 @@
+{% extends 'task/supplier.html' %}
+{% include 'task/navbar.html'%}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.title.label}}
+    {{form.title}}
+    {{form.subject.label}}
+    {{form.subject}}
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+
+{% extends 'task/supplier.html' %}
+{% include 'task/navbar.html'%}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="column">
+        <div class="card">Assigned</div>
+        </div>
+        <div class="column">
+        <div class="card">In progress</div>
+        </div>
+        <div class="column">
+        <div class="card">Completed</div>
+        </div>
+        <div class="column">
+        <div class="card">Hold</div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
