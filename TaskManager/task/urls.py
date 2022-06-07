@@ -8,4 +8,5 @@ urlpatterns = [
     path('logout/',views.Logout,name='logout'),
     path('main/',views.main,name= 'main'),
     path('common/',views.Common,name= 'common'),
+    path('update_task/<str:pk>/',views.Update, name="update_task"),
 ]

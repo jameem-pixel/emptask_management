@@ -12,8 +12,9 @@ class Userform(UserCreationForm):
 
 
 class TitleForm(forms.ModelForm):
-    name = forms.CharField(widget=TextInput(attrs={'placeholder':'Add new task here..'})) 
+    title = forms.CharField(widget=TextInput(attrs={'placeholder':'Add new task here..'})) 
+    subject = forms.CharField(widget=TextInput(attrs={'placeholder':'Add mail subject here..'})) 
     class Meta:
-        model = Employee
-        fields = ['title','subject']
+        model = Taskprovider
+        fields = ['employee','title','subject','date']
 

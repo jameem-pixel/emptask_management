@@ -33,8 +33,14 @@ def Register(request):
 @login_required(login_url='login')
 @admin_only
 def main(request):
-
-    context={}
+    task = Taskprovider.objects.all()
+    form = TitleForm()
+    if request.method =='POST':
+        form = TitleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    context={'form':form,'task':task}
     return render(request,'task/main.html',context)
 unauthenticated_user
 def Login(request):
@@ -61,7 +67,21 @@ def Common(request):
     context = {}
     return render(request,'task/common.html',context)
 
+@login_required(login_url='login')
+@admin_only
+def Update(request, pk):
+    tasks =Taskprovider.objects.get( id = pk)
+    form = TitleForm(instance=tasks)
+    context = {'tasks':tasks, 'form':form}
+    
+    if request.method == 'POST':
+        form = TitleForm(request.POST, instance=tasks)
+        if form.is_valid():
+            form.save()
+        return redirect("/")
+    return render(request,'task/update_task.html',context)
 
 def Logout(request):
     logout(request)
     return redirect('login')
+
