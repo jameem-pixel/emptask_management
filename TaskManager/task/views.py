@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .decorators import allowed_users, unauthenticated_user,admin_only
 from django.contrib.auth.models import Group
+from django.core.paginator import Paginator,EmptyPage
 # Create your views here.
 unauthenticated_user
 def Register(request):
@@ -35,12 +36,18 @@ def Register(request):
 def main(request):
     task = Taskprovider.objects.all()
     form = TitleForm()
+    p=Paginator(task,10)
+    page_num = request.GET.get('page',1)
+    try:
+        page=p.page(page_num)
+    except EmptyPage:
+        page=p.page(1)
     if request.method =='POST':
         form = TitleForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("/")
-    context={'form':form,'task':task}
+    context={'form':form,'page':page}
     return render(request,'task/main.html',context)
 unauthenticated_user
 def Login(request):
