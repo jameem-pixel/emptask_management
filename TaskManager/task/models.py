@@ -15,6 +15,10 @@ class Taskprovider(models.Model):
     title=models.CharField(max_length=1000,null=True,blank=True)
     subject=models.CharField(max_length=200,null=True,blank=True)
     date=models.DateField(auto_now_add=False,auto_now=False,null=True,blank=True)
+    requested_by = models.CharField(max_length=50,null=True,blank=True)
+    requested_from = models.CharField(max_length=50,null=True,blank=True)
+    process = models.CharField(max_length=50,null=True,blank=True)
+
 
 
 

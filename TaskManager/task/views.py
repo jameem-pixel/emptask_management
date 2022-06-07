@@ -58,8 +58,18 @@ def Login(request):
     return render(request,'task/login.html',context)
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['employee'])
-def board(request):
-    context = {}
+def board(request,pk):
+    emp_task = Taskprovider.objects.get(id=pk)
+    form = TitleForm(instance=emp_task)
+    context = {'tasks':emp_task, 'form':form}
+    
+    if request.method == 'POST':
+        form = TitleForm(request.POST, instance=emp_task)
+        if form.is_valid():
+            form.save()
+        return redirect("/")
+
+    context = {"emp_task":emp_task,'form_d':form}
     return render(request,'task/dashboard.html',context)
 
 @login_required(login_url='login')
@@ -80,6 +90,18 @@ def Update(request, pk):
             form.save()
         return redirect("/")
     return render(request,'task/update_task.html',context)
+
+
+
+@login_required(login_url='login')
+@admin_only
+def Delete(request, pk):
+    item = Taskprovider.objects.get(id = pk)
+    context = {'item':item}
+    if request.method == 'POST':
+        item.delete()
+        return redirect("/")    
+    return render (request,'task/del.html', context)
 
 def Logout(request):
     logout(request)
