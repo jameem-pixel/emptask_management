@@ -13,10 +13,13 @@
             <li class="nav-item active">
             <a class="nav-link" href="">FactEntry <span class="sr-only">(current)</span></a>
             </li>
+
             <li>
-            <a class="nav-link" href="{% url 'board' %}">Team</a>
+            <a class="nav-link" href="{% url 'board' %}">My tasks</a>
             </li>
-            <li><a class="nav-link" href="{% url 'main' %}">Task Status</a></li>
+
+        
+            <li><a class="nav-link" href="{% url 'main' %}">Assign task</a></li>
         </ul>
         </div>
         <span class="hello-msg">Welcome,{{request.user}}</span>

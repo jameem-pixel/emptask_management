@@ -204,7 +204,9 @@
         <table id ="customers">
             <tr>
             <th >User ID</th>
+            <th>Task ID</th>
             <th >Name</th>
+            <th>Priority</th>
             <th >Process</th>
             <th >Requested from</th>
             <th >Requested by</th>
@@ -217,7 +219,9 @@
             <tr>
               
             <td>{{ i.employee.id }}</td>
+            <td>{{ i.id }}</td>
             <td>{{ i.employee.name }}</td>
+            <td>{{i.priority}}</td>
             <td>{{i.process}}</td>
             <td>{{ i.title }}</td>
             <td>{{i.requested_from}}</td>

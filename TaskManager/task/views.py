@@ -2,12 +2,14 @@ from email import message
 from multiprocessing import context
 from unicodedata import name
 from django.shortcuts import redirect, render
-from .forms import TitleForm, Userform
+from .forms import TitleForm, Userform,Statusform
 from django.contrib import messages
 from . models import *
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .decorators import allowed_users, unauthenticated_user,admin_only
+from django import template
+register = template.Library()
 from django.contrib.auth.models import Group
 from django.core.paginator import Paginator,EmptyPage
 # Create your views here.
@@ -36,7 +38,7 @@ def Register(request):
 @login_required(login_url='login')
 @admin_only
 def main(request):
-    task = Taskprovider.objects.all()
+    task = Taskprovider.objects.all().order_by('-priority')
     form = TitleForm()
     p=Paginator(task,10)
     page_num = request.GET.get('page',1)
@@ -83,15 +85,23 @@ def Login(request):
 #     return render(request,'task/dashboard.html',context)
 def board(request):
     user_query=Employee.objects.filter(name=request.user)
-    print("''''''''''''''''''",user_query[0].id)
+    cur_id=user_query[0].id
+    st_form=Statusform()
+    if request.method =='POST':
+        st_form=Statusform(request.POST)
+        if st_form.is_valid():
+            st_form.save()
+    st_table= Status_task.objects.filter(employee_id=cur_id)
     
-
-    tk = Taskprovider.objects.get(id=user_query[0].id)    
-    print(tk)
-
-   
-
-    context={"emp":tk}
+    for i in st_table:
+        print(i.status)
+        if  i.status =='COMPLETED':
+            tk=Taskprovider.objects.none
+        else:
+            emp_id=i.id
+            tk = Taskprovider.objects.get(id=emp_id).order_by('-priority') 
+        print
+        context={"emp":tk,"st_form":st_form,'st_table':st_table}
     return render(request,'task/dashboard.html',context)
 
 @login_required(login_url='login')
@@ -128,4 +138,3 @@ def Delete(request, pk):
 def Logout(request):
     logout(request)
     return redirect('login')
-

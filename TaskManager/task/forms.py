@@ -16,5 +16,10 @@ class TitleForm(forms.ModelForm):
     subject = forms.CharField(widget=TextInput(attrs={'placeholder':'Add mail subject here..'})) 
     class Meta:
         model = Taskprovider
-        fields = ['employee','title','subject','date','process','requested_by','requested_from']
+        fields = ['employee','priority','title','subject','date','process','requested_by','requested_from']
+
+class Statusform(forms.ModelForm):
+    class Meta:
+        model = Status_task
+        fields = '__all__'
 
