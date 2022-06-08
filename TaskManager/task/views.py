@@ -1,4 +1,6 @@
 from email import message
+from multiprocessing import context
+from unicodedata import name
 from django.shortcuts import redirect, render
 from .forms import TitleForm, Userform
 from django.contrib import messages
@@ -65,18 +67,31 @@ def Login(request):
     return render(request,'task/login.html',context)
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['employee'])
-def board(request,pk):
-    emp_task = Taskprovider.objects.get(id=pk)
-    form = TitleForm(instance=emp_task)
-    context = {'tasks':emp_task, 'form':form}
-    
-    if request.method == 'POST':
-        form = TitleForm(request.POST, instance=emp_task)
-        if form.is_valid():
-            form.save()
-        return redirect("/")
 
-    context = {"emp_task":emp_task,'form_d':form}
+# def task_emp(request,pk):
+#     emp_task = Taskprovider.objects.get(id=pk)
+#     form = TitleForm(instance=emp_task)
+#     context = {'tasks':emp_task, 'form':form}
+    
+#     if request.method == 'POST':
+#         form = TitleForm(request.POST, instance=emp_task)
+#         if form.is_valid():
+#             form.save()
+#         return redirect("/")
+
+#     context = {"emp_task":emp_task,'form_d':form}
+#     return render(request,'task/dashboard.html',context)
+def board(request):
+    user_query=Employee.objects.filter(name=request.user)
+    print("''''''''''''''''''",user_query[0].id)
+    
+
+    tk = Taskprovider.objects.get(id=user_query[0].id)    
+    print(tk)
+
+   
+
+    context={"emp":tk}
     return render(request,'task/dashboard.html',context)
 
 @login_required(login_url='login')

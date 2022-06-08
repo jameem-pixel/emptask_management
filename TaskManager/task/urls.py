@@ -10,5 +10,5 @@ urlpatterns = [
     path('common/',views.Common,name= 'common'),
     path('update_task/<str:pk>/',views.Update, name="update_task"),
     path('del/<str:pk>/',views.Delete, name="del"),
-    # path('dashboard/<str:pk>/',views.board,name='board')
+    # path('dashboard/<str:pk>/',views.task_emp,name='task_emp')
 ]
