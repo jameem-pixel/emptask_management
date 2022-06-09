@@ -21,5 +21,5 @@ class TitleForm(forms.ModelForm):
 class Statusform(forms.ModelForm):
     class Meta:
         model = Status_task
-        fields = '__all__'
+        fields = ['taskprovider','status','completeddate']
 

@@ -1,0 +1,13 @@
+{% extends 'task/supplier.html' %}
+{% include 'task/navbar.html'%}
+{% load static %}
+{% block content %}
+
+        
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" name="confirm update">
+    </form>
+
+{% endblock %}

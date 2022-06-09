@@ -34,7 +34,7 @@ class Taskprovider(models.Model):
 class Status_task(models.Model):
 
     employee=models.ForeignKey(Employee,on_delete=models.CASCADE)
-    title=models.ForeignKey(Taskprovider,on_delete=models.CASCADE)
+    taskprovider=models.OneToOneField(Taskprovider,on_delete=models.CASCADE)
 
     PRIORITIES_STATUS = (
         ('ASSIGNED', 'assigned'),

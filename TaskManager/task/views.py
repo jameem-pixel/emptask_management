@@ -2,6 +2,7 @@ from email import message
 from multiprocessing import context
 from unicodedata import name
 from django.shortcuts import redirect, render
+from urllib3 import Retry
 from .forms import TitleForm, Userform,Statusform
 from django.contrib import messages
 from . models import *
@@ -69,20 +70,6 @@ def Login(request):
     return render(request,'task/login.html',context)
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['employee'])
-
-# def task_emp(request,pk):
-#     emp_task = Taskprovider.objects.get(id=pk)
-#     form = TitleForm(instance=emp_task)
-#     context = {'tasks':emp_task, 'form':form}
-    
-#     if request.method == 'POST':
-#         form = TitleForm(request.POST, instance=emp_task)
-#         if form.is_valid():
-#             form.save()
-#         return redirect("/")
-
-#     context = {"emp_task":emp_task,'form_d':form}
-#     return render(request,'task/dashboard.html',context)
 def board(request):
     user_query=Employee.objects.filter(name=request.user)
     cur_id=user_query[0].id
@@ -91,17 +78,8 @@ def board(request):
         st_form=Statusform(request.POST)
         if st_form.is_valid():
             st_form.save()
-    st_table= Status_task.objects.filter(employee_id=cur_id)
-    
-    for i in st_table:
-        print(i.status)
-        if  i.status =='COMPLETED':
-            tk=Taskprovider.objects.none
-        else:
-            emp_id=i.id
-            tk = Taskprovider.objects.get(id=emp_id).order_by('-priority') 
-        print
-        context={"emp":tk,"st_form":st_form,'st_table':st_table}
+    tk=Status_task.objects.filter(employee_id=cur_id)
+    context={"emp":tk,"st_form":st_form}
     return render(request,'task/dashboard.html',context)
 
 @login_required(login_url='login')
@@ -138,3 +116,18 @@ def Delete(request, pk):
 def Logout(request):
     logout(request)
     return redirect('login')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['employee'])
+def Update_task(request, pk):
+    tasks =Status_task.objects.get( id = pk)
+    form = Statusform(instance=tasks)
+    context = {'emp':tasks, 'form':form}
+    
+    if request.method == 'POST':
+        form = Statusform(request.POST, instance=tasks)
+        if form.is_valid():
+            form.save()
+        return redirect("/")    
+    return render(request,'task/updatetask.html',context)
