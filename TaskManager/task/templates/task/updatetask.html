@@ -4,10 +4,16 @@
 {% block content %}
 
         
-    <form method="POST" action="">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" name="confirm update">
-    </form>
+<form action="" method="POST">
+    {% csrf_token %}
+    <h6>Select task: {{form.taskprovider}}</h6>
+    <h6>Select status: {{form.status}}</h6>
+    <h6>Enter completion date : {{form.completeddate}}</h6>
+    
 
+<button>
+    <input class="btn login_btn" type="submit" value="Submit">
+</button>
+
+</form>
 {% endblock %}

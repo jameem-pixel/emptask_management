@@ -8,7 +8,7 @@ from django.contrib import messages
 from . models import *
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from .decorators import allowed_users, unauthenticated_user,admin_only
+from .decorators import allowed_users, unauthenticated_user,admin_only,Paginator_dec
 from django import template
 register = template.Library()
 from django.contrib.auth.models import Group
@@ -78,8 +78,37 @@ def board(request):
         st_form=Statusform(request.POST)
         if st_form.is_valid():
             st_form.save()
+        else:
+            messages.warning(request,"Already submited Please do update")
     tk=Status_task.objects.filter(employee_id=cur_id)
-    context={"emp":tk,"st_form":st_form}
+    p=Paginator(tk,10)
+    page_num = request.GET.get('page',1)
+    try:
+        page1=p.page(page_num)
+    except EmptyPage:
+        page1=p.page(1)
+    tkc=Status_task.objects.filter(status='COMPLETED')
+    p=Paginator(tkc,10)
+    page_num = request.GET.get('page',1)
+    try:
+        page3=p.page(page_num)
+    except EmptyPage:
+        page3=p.page(1)
+    tkinp=Status_task.objects.filter(status='INPROGRESS')
+    p=Paginator(tkinp,10)
+    page_num = request.GET.get('page',1)
+    try:
+        page2=p.page(page_num)
+    except EmptyPage:
+        page2=p.page(1)
+    tkh=Status_task.objects.filter(status='HOLD')
+    p=Paginator(tkh,10)
+    page_num = request.GET.get('page',1)
+    try:
+        page4=p.page(page_num)
+    except EmptyPage:
+        page4=p.page(1)
+    context={"emp":page1,"st_form":st_form,'tkinp':page2,"tkc":page3,'tkh':page4}
     return render(request,'task/dashboard.html',context)
 
 @login_required(login_url='login')
@@ -129,5 +158,5 @@ def Update_task(request, pk):
         form = Statusform(request.POST, instance=tasks)
         if form.is_valid():
             form.save()
-        return redirect("/")    
+        return redirect("common")    
     return render(request,'task/updatetask.html',context)

@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.core.paginator import Paginator,EmptyPage
 
 def unauthenticated_user(view_func):
     def wrapper_func(request,*args,**kwargs):
@@ -35,3 +36,13 @@ def admin_only(view_func):
     return wrapper_function
 
     
+
+def Paginator_dec(request,*args,**kwargs):
+    p=Paginator(args,10)
+    page_num = request.GET.get('page',1)
+    try:
+        return p.page(page_num)
+    except EmptyPage:
+        return p.page(1)
+
+
