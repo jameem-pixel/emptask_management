@@ -1,5 +1,6 @@
 from email import message
 from multiprocessing import context
+from turtle import st
 from unicodedata import name
 from django.shortcuts import redirect, render
 from urllib3 import Retry
@@ -81,7 +82,7 @@ def board(request):
             st_form.save()
         else:
             messages.warning(request,"Already submited Please do update")
-    tk=Status_task.objects.filter(employee_id=cur_id)
+    tk=Taskprovider.objects.filter(employee_id=cur_id)
     p=Paginator(tk,10)
     page_num = request.GET.get('page',1)
     try:
@@ -115,18 +116,14 @@ def board(request):
 
 @login_required(login_url='login')
 def Common(request):
-    user_query=Employee.objects.filter(name=request.user)
-    try:
-        cur_id=user_query[0].id
-        today=datetime.now()
-        yesterday = today - timedelta(days = 1)
-        v=str(yesterday).split(" ")[0]
-        v=datetime.strptime(v, '%Y-%d-%m').strftime('%Y-%m-%d')
-        report_query=Status_task.objects.filter(completeddate=v).filter(employee_id=cur_id)  
-        context={'report_query':report_query}
-    except:
-        pass
-    context={}
+    st=[]
+    user_query=Employee.objects.all()
+    for i in user_query:
+        k=i.id
+        st.append(Status_task.objects.filter(employee_id=k))
+    flat_list = [x for xs in st for x in xs]
+    
+    context={'st':flat_list}
     return render(request,'task/common.html',context)
 
 @login_required(login_url='login')
@@ -163,7 +160,7 @@ def Logout(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['employee'])
 def Update_task(request, pk):
-    tasks =Status_task.objects.get( id = pk)
+    tasks =Status_task.objects.get( taskprovider = pk)
     form = Statusform(instance=tasks)
     context = {'emp':tasks, 'form':form}
     

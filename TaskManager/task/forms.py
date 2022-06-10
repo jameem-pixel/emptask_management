@@ -5,6 +5,8 @@ from django import forms
 from django.forms.widgets import TextInput
 
 from . models import *
+class DateInput(forms.DateInput):
+    input_type = 'date'
 class Userform(UserCreationForm):
     class Meta:
         model = User
@@ -17,9 +19,16 @@ class TitleForm(forms.ModelForm):
     class Meta:
         model = Taskprovider
         fields = ['employee','priority','title','subject','date','process','requested_by','requested_from']
+        widgets = {
+            'date': DateInput(),
+                }
+
 
 class Statusform(forms.ModelForm):
     class Meta:
         model = Status_task
-        fields = ['taskprovider','status','completeddate']
+        fields = ['employee','taskprovider','status','completeddate']
+        widgets = {
+            'completeddate': DateInput(),
+        }
 

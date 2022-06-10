@@ -15,6 +15,7 @@
 <br>
 <form action="" method="POST">
     {% csrf_token %}
+    <h6>Employee: {{st_form.employee}}</h6>
     <h6>Select task: {{st_form.taskprovider}}</h6>
     <h6>Select status: {{st_form.status}}</h6>
     <h6>Enter completion date : {{st_form.completeddate}}</h6>
@@ -51,15 +52,15 @@
     {% for i in emp %}
     
     <tr>
-    <td>{{ i.taskprovider.employee.id }}</td>
-    <td>{{ i.taskprovider.id }}</td>
-    <td>{{i.taskprovider.priority}}</td>
-    <td>{{i.taskprovider.process}}</td>
-    <td>{{i.taskprovider.requested_from}}</td>
-    <td>{{i.taskprovider.requested_by}}</td>
-    <td>{{ i.taskprovider.title }}</td>
-    <td>{{ i.taskprovider.subject }}</td>
-    <td>{{ i.taskprovider.date }}</td>
+    <td>{{ i.employee.id }}</td>
+    <td>{{ i.id }}</td>
+    <td>{{i.priority}}</td>
+    <td>{{i.process}}</td>
+    <td>{{i.requested_from}}</td>
+    <td>{{i.requested_by}}</td>
+    <td>{{ i.title }}</td>
+    <td>{{ i.subject }}</td>
+    <td>{{ i.date }}</td>
     <td><a href="/updatetask/{{i.id}}/">UPDATE</a></td>
     </tr>
     {% endfor  %}
@@ -76,37 +77,6 @@
         <a href="?page={{emp.paginator.num_pages}}">Last &raquo</a>
     {% endif %}
     <hr>
-<h3>My status</h3>
-<table id="">
-    <tr>
-        <th >User ID</th>
-        <th>Task ID</th>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Completion date</th>
-    </tr>
-    {% for i in emp %}
-    
-        
-    <tr>
-        <td>{{ i.taskprovider.employee.id }}</td>
-        <td>{{ i.taskprovider.id }}</td>
-        <td>{{ i.taskprovider.title }}</td>
-        <td>{{i}}</td>
-        <td>{{i.completeddate}}</td>
-    </tr>
-    {% endfor  %}
-</table>
-    <hr>
-    {% if emp.has_previous%}
-        <a href="?page=1">&laquo First</a> 
-        <a href="?page={{emp.previous_page_number }}">Previous</a> 
-    {% endif %}
-    page number {{emp.number}} of {{emp.paginator.num_pages}}
-    {% if emp.has_next %}
-        <a href="?page={{emp.next_page_number }}">Next page</a>
-        <a href="?page={{emp.paginator.num_pages}}">Last &raquo</a>
-    {% endif %}
     <hr>
     <h3>Completed</h3>
     <table id ="" class="">

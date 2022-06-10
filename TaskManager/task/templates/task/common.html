@@ -3,27 +3,34 @@
 {% include 'task/navbar.html'%}
 {% load static %}
 {% block content %}
-<h3>Daily report</h3>
-<h4>{{request.user}}</h4>
-<table id="">
+<h3>Webjet daily report</h3>
+
+
+<table id ="" class="">
     <tr>
-        <th >User ID</th>
-        <th>Task ID</th>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Completion date</th>
+    <th >User ID</th>
+    <th>Task ID</th>
+    <th >Developer Name</th>
+    <th >Task title</th>
+    <th>Mail subject</th>
+    <th>Assigned Date</th>
+    <th>Completion Date</th>
+    <th>Task Status</th>
     </tr>
-    {% for i in report_query %}
+    {% for i in st %}
     
-        
     <tr>
-        <td>{{ i.taskprovider.employee.id }}</td>
-        <td>{{ i.taskprovider.id }}</td>
-        <td>{{ i.taskprovider.title }}</td>
-        <td>{{i}}</td>
-        <td>{{i.completeddate}}</td>
+    <td>{{ i.employee.id }}</td>
+    <td>{{ i.taskprovider.id }}</td>
+    <td>{{i.taskprovider.employee.name}}</td>
+    <td>{{ i.taskprovider.title }}</td>
+    <td>{{ i.taskprovider.subject }}</td>
+    <td>{{ i.taskprovider.date }}</td>
+    <td>{{ i.completeddate }}</td>
+    <td>{{i.status}}</td>
+    
     </tr>
+    
     {% endfor  %}
 </table>
-
 {% endblock %}

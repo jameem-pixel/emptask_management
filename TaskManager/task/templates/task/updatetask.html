@@ -6,6 +6,7 @@
         
 <form action="" method="POST">
     {% csrf_token %}
+    <h6>Employee: {{form.employee}}</h6>
     <h6>Select task: {{form.taskprovider}}</h6>
     <h6>Select status: {{form.status}}</h6>
     <h6>Enter completion date : {{form.completeddate}}</h6>
