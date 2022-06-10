@@ -13,13 +13,13 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            background: #7abecc !important;
+            background: #0066ff !important;
         }
         .user_card {
             width: 350px;
             margin-top: auto;
             margin-bottom: auto;
-            background: #74cfbf;
+            background: #3d3d3d;
             position: relative;
             display: flex;
             justify-content: center;
@@ -38,11 +38,14 @@
 
         #form-title{
             color: #fff;
+            
         }
+
         .login_btn {
             width: 100%;
-            background: #33ccff !important;
+            background: #f7ba5b !important;
             color: white !important;
+            
         }
         .login_btn:focus {
             box-shadow: none !important;
@@ -63,6 +66,12 @@
             outline: 0px !important;
         }
 
+        #messages{
+            background-color: grey;
+            color: #fff;
+            padding: 10px;
+            margin-top: 10px;
+        }
     </style>
 
 </head>
@@ -105,7 +114,7 @@
         
                 <div class="mt-4">
                     <div class="d-flex justify-content-center links">
-                        Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+                        <h6 style="color:white">Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a></h6>
                     </div>
                 </div>
             </div>

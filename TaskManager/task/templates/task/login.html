@@ -14,13 +14,13 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            background: #7abecc !important;
+            background: #0066ff !important;
         }
         .user_card {
             width: 350px;
             margin-top: auto;
             margin-bottom: auto;
-            background: #74cfbf;
+            background: #3d3d3d;
             position: relative;
             display: flex;
             justify-content: center;
@@ -44,8 +44,9 @@
 
         .login_btn {
             width: 100%;
-            background: #33ccff !important;
+            background: #f7ba5b !important;
             color: white !important;
+            
         }
         .login_btn:focus {
             box-shadow: none !important;
@@ -79,6 +80,7 @@
     <div class="container h-100">
         <div class="d-flex justify-content-center h-100">
             <div class="user_card">
+               
                 <div class="d-flex justify-content-center">
 
 
@@ -106,13 +108,14 @@
                     </form>
 
                 </div>
+                <br>
                 {% for message in messages %}
-                    <p>{{message}}</p>
+                    <h6 style="color:white">{{message}}</h6>
                 {% endfor %}
-        
+                
                 <div class="mt-4">
                     <div class="d-flex justify-content-center links">
-                        Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+                        <h6 style="color:white">Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a></h6>
                     </div>
             
                 </div>

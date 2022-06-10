@@ -3,27 +3,27 @@
 {% include 'task/navbar.html'%}
 {% load static %}
 {% block content %}
-<br>
-<div class="row">
-    <div class="col-md-3">
-        <div class="card card-body">
-            <h5>Developer</h5>
-        </div>
-        <div class="card card-body">
-            <table class="table">
-                <tr>
-                    <th>Task</th>
-                </tr>
-                {% for i in dev %}
-                    <tr>
-                        <td>{{i.name}}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
-</div>
+<h3>Daily report</h3>
+<h4>{{request.user}}</h4>
+<table id="">
+    <tr>
+        <th >User ID</th>
+        <th>Task ID</th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Completion date</th>
+    </tr>
+    {% for i in report_query %}
     
-
+        
+    <tr>
+        <td>{{ i.taskprovider.employee.id }}</td>
+        <td>{{ i.taskprovider.id }}</td>
+        <td>{{ i.taskprovider.title }}</td>
+        <td>{{i}}</td>
+        <td>{{i.completeddate}}</td>
+    </tr>
+    {% endfor  %}
+</table>
 
 {% endblock %}

@@ -29,6 +29,9 @@
 </form>
 
 <br>
+<button><h3><a style="color: #ffffff;
+    text-decoration: none;" href="{% url 'common' %}">Report Generator</a></h3></button>
+<br>
 <h2>Today's Task List</h2>
 <br>
 <h3>Assigned</h3>
@@ -84,7 +87,7 @@
     </tr>
     {% for i in emp %}
     
-        {{uk}}
+        
     <tr>
         <td>{{ i.taskprovider.employee.id }}</td>
         <td>{{ i.taskprovider.id }}</td>

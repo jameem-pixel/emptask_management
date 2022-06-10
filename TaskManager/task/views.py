@@ -13,6 +13,7 @@ from django import template
 register = template.Library()
 from django.contrib.auth.models import Group
 from django.core.paginator import Paginator,EmptyPage
+from datetime import datetime,timedelta
 # Create your views here.
 unauthenticated_user
 def Register(request):
@@ -87,21 +88,22 @@ def board(request):
         page1=p.page(page_num)
     except EmptyPage:
         page1=p.page(1)
-    tkc=Status_task.objects.filter(status='COMPLETED')
+    
+    tkc=Status_task.objects.filter(status='COMPLETED').filter(employee_id=cur_id)
     p=Paginator(tkc,10)
     page_num = request.GET.get('page',1)
     try:
         page3=p.page(page_num)
     except EmptyPage:
         page3=p.page(1)
-    tkinp=Status_task.objects.filter(status='INPROGRESS')
+    tkinp=Status_task.objects.filter(status='INPROGRESS').filter(employee_id=cur_id)
     p=Paginator(tkinp,10)
     page_num = request.GET.get('page',1)
     try:
         page2=p.page(page_num)
     except EmptyPage:
         page2=p.page(1)
-    tkh=Status_task.objects.filter(status='HOLD')
+    tkh=Status_task.objects.filter(status='HOLD').filter(employee_id=cur_id)
     p=Paginator(tkh,10)
     page_num = request.GET.get('page',1)
     try:
@@ -113,8 +115,18 @@ def board(request):
 
 @login_required(login_url='login')
 def Common(request):
-    select_emp=Employee.objects.all()
-    context = {'dev':select_emp}
+    user_query=Employee.objects.filter(name=request.user)
+    try:
+        cur_id=user_query[0].id
+        today=datetime.now()
+        yesterday = today - timedelta(days = 1)
+        v=str(yesterday).split(" ")[0]
+        v=datetime.strptime(v, '%Y-%d-%m').strftime('%Y-%m-%d')
+        report_query=Status_task.objects.filter(completeddate=v).filter(employee_id=cur_id)  
+        context={'report_query':report_query}
+    except:
+        pass
+    context={}
     return render(request,'task/common.html',context)
 
 @login_required(login_url='login')

@@ -4,13 +4,90 @@
 {% block content %}
 
 
+<!-- 
+
+<div class="container h-100">
+<div class="d-flex justify-content-center h-100">
+<div class="user_card">
+
+<div class="d-flex justify-content-center">
+
+
+<h3 id="form-title">Task Assign</h3>
+</div>
+<div class="d-flex justify-content-center form_container">
+<form method="POST" action="">
+{% csrf_token %}
+<div class="input-group mb-3">
+<div class="input-group-append">
+</div>
+<h5>Developer name:{{form.employee}}</h5>
+</div>
+<div class="input-group mb-2">
+<div class="input-group-append">
+
+</div>
+<h5>Select Priority:{{form.priority}}</h5>
+</div>
+
+<div class="input-group mb-2">
+<div class="input-group-append">
+
+</div>
+<h5>Title:{{form.title}}</h5>
+</div>
+<div class="input-group mb-2">
+<div class="input-group-append">
+
+</div>
+<h5>Mail subject:{{form.Subject}}</h5>
+</div>
+<div class="input-group mb-2">
+<div class="input-group-append">
+
+</div>
+<h5>Date:{{form.date}}</h5>
+</div>
+<div class="input-group mb-2">
+<div class="input-group-append">
+
+</div>
+<h5>Process:{{form.process}}</h5>
+</div>
+<div class="input-group mb-2">
+<div class="input-group-append">
+
+</div>
+<h5>Requested by:{{form.requested_by}}</h5>
+</div>
+
+
+</div>
+<h5>Requested from:{{form.requested_from}}</h5>
+</div>
+
+<div class="d-flex justify-content-center mt-3 login_container">
+<input class="btn login_btn" type="submit" value="Submit">
+</div>
+</form>
+
+</div>
+<br>
+
+</div>
+</div>
+</div>
+</div> -->
+
+
+
 <form action="" method="POST">
   {% csrf_token %}
   <p>Today's Task</p>
   <h5>Developer name:{{form.employee}}</h5>
   <h5>Select Priority:{{form.priority}}</h5>
   <h5>Title:{{form.title}}</h5>
-  <h5>Mail subject:{{form.Subject}}</h5>
+  <h5>Mail subject:{{form.subject}}</h5>
   <h5>Date:{{form.date}}</h5>
   <h5>Process:{{form.process}}</h5>
   <h5>Requested by:{{form.requested_by}}</h5>
@@ -71,5 +148,17 @@
           <a href="?page={{page.next_page_number }}">Next page</a>
           <a href="?page={{page.paginator.num_pages}}">Last &raquo</a>
         {% endif %}
-      
+ 
+        
+
+
+
+
+
+
+
+
+
+
+  
 {% endblock %}
