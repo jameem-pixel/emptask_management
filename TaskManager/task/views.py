@@ -113,7 +113,8 @@ def board(request):
 
 @login_required(login_url='login')
 def Common(request):
-    context = {}
+    select_emp=Employee.objects.all()
+    context = {'dev':select_emp}
     return render(request,'task/common.html',context)
 
 @login_required(login_url='login')

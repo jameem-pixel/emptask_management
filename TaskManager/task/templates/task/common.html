@@ -3,5 +3,27 @@
 {% include 'task/navbar.html'%}
 {% load static %}
 {% block content %}
+<br>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-body">
+            <h5>Developer</h5>
+        </div>
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Task</th>
+                </tr>
+                {% for i in dev %}
+                    <tr>
+                        <td>{{i.name}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+    
+
 
 {% endblock %}
