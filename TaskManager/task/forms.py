@@ -23,7 +23,9 @@ class TitleForm(forms.ModelForm):
             'date': DateInput(),
                 }
 
-
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.fields['employee'].queryset =Employee.objects.none()
 class Statusform(forms.ModelForm):
     class Meta:
         model = Status_task
